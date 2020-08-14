@@ -7,17 +7,16 @@
     el: '#app',
     data: {
       newItem: '',
-      // todos: [{
-      //   title: 'task 1',
-      //   isDone: false
-      // }, {
-      //   title: 'task 2',
-      //   isDone: false
-      // }, {
-      //   title: 'task 3',
-      //   isDone: true
-      // }]
-      todos: []
+      todos: [{
+        title: 'task 1',
+        isDone: false
+      }, {
+        title: 'task 2',
+        isDone: false
+      }, {
+        title: 'task 3',
+        isDone: true
+      }]
     },
     methods: {
       addItem: function() {
@@ -32,14 +31,26 @@
         if (confirm('are you sure?')) {
           this.todos.splice(index, 1);
         }
+      },
+      purge: function(index) {
+        if (!confirm('delete finished?')) {
+          return;
+        }
+        // this.todos = this.todos.filter(function(todo) {
+        //   return !todo.isDone;
+        // });
+        this.todos = this.remaining;
       }
     },
     computed: {
       remaining: function() {
-        var items = this.todos.filter(function(todo) {
+        // var items = this.todos.filter(function(todo) {
+        //   return !todo.isDone;
+        // });
+        // return items.length;
+        return this.todos.filter(function(todo) {
           return !todo.isDone;
         });
-        return items.length;
       }
     }
   });
